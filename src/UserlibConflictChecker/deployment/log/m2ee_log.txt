@@ -1,0 +1,10 @@
+[rtlauncher:container$] INFO Evictions for component 'project-userlib':
+Evicted C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model\lib\userlib\commons-lang3-3.9.jar by C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model\lib\userlib\commons-lang3-3.11.jar.
+Evicted C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model\lib\userlib\commons-io-2.3.jar by C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model\lib\userlib\commons-io-2.8.0.jar.
+Evicted C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model\lib\userlib\commons-io-2.6.jar by C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model\lib\userlib\commons-io-2.8.0.jar.
+[rtlauncher:container$] INFO Container start took 1668. Ready to accept admin requests.
+Jun 20, 2023 4:28:30 PM org.hsqldb.persist.Logger logInfoEvent
+INFO: Database closed
+
+
+
