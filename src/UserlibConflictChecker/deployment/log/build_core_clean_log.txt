@@ -1,9 +1,0 @@
-Buildfile: C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\build_core.xml
-
-clean:
-   [delete] Deleting directory C:\github\UserlibConflictChecker\src\UserlibConflictChecker\deployment\model
-
-BUILD SUCCESSFUL
-Total time: 0 seconds
-
-
