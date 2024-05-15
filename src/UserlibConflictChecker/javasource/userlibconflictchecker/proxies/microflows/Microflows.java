@@ -7,25 +7,30 @@ package userlibconflictchecker.proxies.microflows;
 import java.util.HashMap;
 import java.util.Map;
 import com.mendix.core.Core;
-import com.mendix.core.CoreException;
-import com.mendix.systemwideinterfaces.MendixRuntimeException;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class Microflows
 {
+	/**
+	 * @deprecated
+	 * The default constructor of the Microflows class should not be used.
+	 * Use the static microflow invocation methods instead.
+	 */
+	@java.lang.Deprecated(since = "9.12", forRemoval = true)
+	public Microflows() {}
+
 	// These are the microflows for the UserlibConflictChecker module
 	public static java.util.List<userlibconflictchecker.proxies.UserlibAnalyzeResult> dS_UserlibConflictChecker(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		java.util.List<IMendixObject> objs = Core.microflowCall("UserlibConflictChecker.DS_UserlibConflictChecker").withParams(params).execute(context);
-		java.util.List<userlibconflictchecker.proxies.UserlibAnalyzeResult> result = null;
-		if (objs != null)
-		{
-			result = new java.util.ArrayList<>();
-			for (IMendixObject obj : objs)
-				result.add(userlibconflictchecker.proxies.UserlibAnalyzeResult.initialize(context, obj));
+		if (objs == null) {
+			return null;
+		} else {
+			return objs.stream()
+				.map(obj -> userlibconflictchecker.proxies.UserlibAnalyzeResult.initialize(context, obj))
+				.collect(java.util.stream.Collectors.toList());
 		}
-		return result;
 	}
 }

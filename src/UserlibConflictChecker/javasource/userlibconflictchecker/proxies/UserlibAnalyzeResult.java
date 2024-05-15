@@ -26,7 +26,7 @@ public class UserlibAnalyzeResult
 		Summary("Summary"),
 		Detail("Detail");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -42,15 +42,17 @@ public class UserlibAnalyzeResult
 
 	public UserlibAnalyzeResult(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "UserlibConflictChecker.UserlibAnalyzeResult"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected UserlibAnalyzeResult(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject userlibAnalyzeResultMendixObject)
 	{
-		if (userlibAnalyzeResultMendixObject == null)
+		if (userlibAnalyzeResultMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("UserlibConflictChecker.UserlibAnalyzeResult", userlibAnalyzeResultMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a UserlibConflictChecker.UserlibAnalyzeResult");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, userlibAnalyzeResultMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.userlibAnalyzeResultMendixObject = userlibAnalyzeResultMendixObject;
 		this.context = context;
@@ -68,6 +70,9 @@ public class UserlibAnalyzeResult
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static userlibconflictchecker.proxies.UserlibAnalyzeResult initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -82,6 +87,7 @@ public class UserlibAnalyzeResult
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -90,6 +96,7 @@ public class UserlibAnalyzeResult
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -310,9 +317,9 @@ public class UserlibAnalyzeResult
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final userlibconflictchecker.proxies.UserlibAnalyzeResult that = (userlibconflictchecker.proxies.UserlibAnalyzeResult) obj;
@@ -332,7 +339,7 @@ public class UserlibAnalyzeResult
 	 */
 	public static java.lang.String getType()
 	{
-		return "UserlibConflictChecker.UserlibAnalyzeResult";
+		return entityName;
 	}
 
 	/**
