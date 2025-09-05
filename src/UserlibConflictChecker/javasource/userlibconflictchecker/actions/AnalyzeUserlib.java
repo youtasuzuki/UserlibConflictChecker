@@ -27,14 +27,20 @@ import userlibconflictchecker.proxies.UserlibAnalyzeResult;
 
 public class AnalyzeUserlib extends CustomJavaAction<java.util.List<IMendixObject>>
 {
-	public AnalyzeUserlib(IContext context)
+	private IMendixObject __CustomUserlibPath;
+	private userlibconflictchecker.proxies.CustomUserlibPath CustomUserlibPath;
+
+	public AnalyzeUserlib(IContext context, IMendixObject CustomUserlibPath)
 	{
 		super(context);
+		this.__CustomUserlibPath = CustomUserlibPath;
 	}
 
 	@java.lang.Override
 	public java.util.List<IMendixObject> executeAction() throws Exception
 	{
+		this.CustomUserlibPath = this.__CustomUserlibPath == null ? null : userlibconflictchecker.proxies.CustomUserlibPath.initialize(getContext(), __CustomUserlibPath);
+
 		// BEGIN USER CODE
         this.doAnalyze();
 
@@ -59,6 +65,7 @@ public class AnalyzeUserlib extends CustomJavaAction<java.util.List<IMendixObjec
         	}
         	moResult.setSummary(clipForExcel(sbSummary.toString()));
         	moResult.setDetail(clipForExcel(sbDetail.toString()));
+        	moResult.setUserlibAnalyzeResult_CustomUserlibPath(CustomUserlibPath);
         }
         //logger.info(results.toString());
         Core.commit(getContext(), moResults);
@@ -87,16 +94,27 @@ public class AnalyzeUserlib extends CustomJavaAction<java.util.List<IMendixObjec
 
 	private void doAnalyze() throws Exception {
 
-        String userlibpath = Core.getConfiguration().getBasePath() + //
-        		Core.getConfiguration().getFileSeparator() + //
-        		"model" + //
-        		Core.getConfiguration().getFileSeparator() + //
-        		"lib" + //
-        		Core.getConfiguration().getFileSeparator() + //
-        		"userlib";
+		String userlibpath;
+		if (this.CustomUserlibPath.getUserlibPath() != null && this.CustomUserlibPath.getUserlibPath().trim().length() > 0) {
+			userlibpath = this.CustomUserlibPath.getUserlibPath().trim();
+		} else {
+			userlibpath = Core.getConfiguration().getBasePath() + //
+	        		Core.getConfiguration().getFileSeparator() + //
+	        		"model" + //
+	        		Core.getConfiguration().getFileSeparator() + //
+	        		"lib" + //
+	        		Core.getConfiguration().getFileSeparator() + //
+	        		"userlib";
+			this.CustomUserlibPath.setUserlibPath(userlibpath);
+		}
         File userlib = new File(userlibpath);
         File[] userliblist = userlib.listFiles();
 
+        if (userliblist == null || userliblist.length == 0) {
+			logger.info("No userlib found in " + userlibpath);
+			return;
+		}
+        
         for (int i = 0; i < userliblist.length; i++) {
         	File file = userliblist[i];
             if (file.isDirectory() || !file.exists() || !file.getName().endsWith(".jar"))

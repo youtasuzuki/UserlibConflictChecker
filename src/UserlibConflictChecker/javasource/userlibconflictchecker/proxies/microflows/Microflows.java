@@ -21,16 +21,16 @@ public class Microflows
 	public Microflows() {}
 
 	// These are the microflows for the UserlibConflictChecker module
-	public static java.util.List<userlibconflictchecker.proxies.UserlibAnalyzeResult> dS_UserlibConflictChecker(IContext context)
+	public static void aCT_AnalyzeUserlib(IContext context, userlibconflictchecker.proxies.CustomUserlibPath _customUserlibPath)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		java.util.List<IMendixObject> objs = Core.microflowCall("UserlibConflictChecker.DS_UserlibConflictChecker").withParams(params).execute(context);
-		if (objs == null) {
-			return null;
-		} else {
-			return objs.stream()
-				.map(obj -> userlibconflictchecker.proxies.UserlibAnalyzeResult.initialize(context, obj))
-				.collect(java.util.stream.Collectors.toList());
-		}
+		params.put("CustomUserlibPath", _customUserlibPath == null ? null : _customUserlibPath.getMendixObject());
+		Core.microflowCall("UserlibConflictChecker.ACT_AnalyzeUserlib").withParams(params).execute(context);
+	}
+	public static userlibconflictchecker.proxies.CustomUserlibPath dS_UserlibAnalyzePath(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		IMendixObject result = (IMendixObject)Core.microflowCall("UserlibConflictChecker.DS_UserlibAnalyzePath").withParams(params).execute(context);
+		return result == null ? null : userlibconflictchecker.proxies.CustomUserlibPath.initialize(context, result);
 	}
 }

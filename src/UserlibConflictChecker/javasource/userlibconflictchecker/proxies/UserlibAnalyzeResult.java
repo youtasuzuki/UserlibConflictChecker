@@ -24,7 +24,8 @@ public class UserlibAnalyzeResult
 		SearchInMvnrepository("SearchInMvnrepository"),
 		ClassCount("ClassCount"),
 		Summary("Summary"),
-		Detail("Detail");
+		Detail("Detail"),
+		UserlibAnalyzeResult_CustomUserlibPath("UserlibConflictChecker.UserlibAnalyzeResult_CustomUserlibPath");
 
 		private final java.lang.String metaName;
 
@@ -296,6 +297,53 @@ public class UserlibAnalyzeResult
 	public final void setDetail(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String detail)
 	{
 		getMendixObject().setValue(context, MemberNames.Detail.toString(), detail);
+	}
+
+	/**
+	 * @throws com.mendix.core.CoreException
+	 * @return value of UserlibAnalyzeResult_CustomUserlibPath
+	 */
+	public final userlibconflictchecker.proxies.CustomUserlibPath getUserlibAnalyzeResult_CustomUserlibPath() throws com.mendix.core.CoreException
+	{
+		return getUserlibAnalyzeResult_CustomUserlibPath(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of UserlibAnalyzeResult_CustomUserlibPath
+	 * @throws com.mendix.core.CoreException
+	 */
+	public final userlibconflictchecker.proxies.CustomUserlibPath getUserlibAnalyzeResult_CustomUserlibPath(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		userlibconflictchecker.proxies.CustomUserlibPath result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.UserlibAnalyzeResult_CustomUserlibPath.toString());
+		if (identifier != null) {
+			result = userlibconflictchecker.proxies.CustomUserlibPath.load(context, identifier);
+		}
+		return result;
+	}
+
+	/**
+	 * Set value of UserlibAnalyzeResult_CustomUserlibPath
+	 * @param userlibanalyzeresult_customuserlibpath
+	 */
+	public final void setUserlibAnalyzeResult_CustomUserlibPath(userlibconflictchecker.proxies.CustomUserlibPath userlibanalyzeresult_customuserlibpath)
+	{
+		setUserlibAnalyzeResult_CustomUserlibPath(getContext(), userlibanalyzeresult_customuserlibpath);
+	}
+
+	/**
+	 * Set value of UserlibAnalyzeResult_CustomUserlibPath
+	 * @param context
+	 * @param userlibanalyzeresult_customuserlibpath
+	 */
+	public final void setUserlibAnalyzeResult_CustomUserlibPath(com.mendix.systemwideinterfaces.core.IContext context, userlibconflictchecker.proxies.CustomUserlibPath userlibanalyzeresult_customuserlibpath)
+	{
+		if (userlibanalyzeresult_customuserlibpath == null) {
+			getMendixObject().setValue(context, MemberNames.UserlibAnalyzeResult_CustomUserlibPath.toString(), null);
+		} else {
+			getMendixObject().setValue(context, MemberNames.UserlibAnalyzeResult_CustomUserlibPath.toString(), userlibanalyzeresult_customuserlibpath.getMendixObject().getId());
+		}
 	}
 
 	/**
