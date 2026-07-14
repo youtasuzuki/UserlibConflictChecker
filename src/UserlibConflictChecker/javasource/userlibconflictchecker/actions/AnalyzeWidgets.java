@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -118,6 +119,8 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 					if (name.equals("package.xml")) {
 						byte[] data = zis.readAllBytes();
 						DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+						factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+						//factory.setFeature("http://apache.org", true);
 						DocumentBuilder builder = factory.newDocumentBuilder();
 						Document document = builder.parse(new ByteArrayInputStream(data));
 						Element packageElement = document.getDocumentElement();
@@ -132,6 +135,8 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 					} else if (name.endsWith(".xml")) {
 						byte[] data = zis.readAllBytes();
 						DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+						factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+						//factory.setFeature("http://apache.org", true);
 						DocumentBuilder builder = factory.newDocumentBuilder();
 						Document document = builder.parse(new ByteArrayInputStream(data));
 						Element rootElement = document.getDocumentElement();
