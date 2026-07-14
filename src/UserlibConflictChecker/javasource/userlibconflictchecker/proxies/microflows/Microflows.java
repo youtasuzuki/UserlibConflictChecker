@@ -27,10 +27,22 @@ public class Microflows
 		params.put("CustomUserlibPath", _customUserlibPath == null ? null : _customUserlibPath.getMendixObject());
 		Core.microflowCall("UserlibConflictChecker.ACT_AnalyzeUserlib").withParams(params).execute(context);
 	}
+	public static void aCT_AnalyzeWidgets(IContext context, userlibconflictchecker.proxies.TargetWidgetsPath _targetWidgetsPath)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("TargetWidgetsPath", _targetWidgetsPath == null ? null : _targetWidgetsPath.getMendixObject());
+		Core.microflowCall("UserlibConflictChecker.ACT_AnalyzeWidgets").withParams(params).execute(context);
+	}
 	public static userlibconflictchecker.proxies.CustomUserlibPath dS_UserlibAnalyzePath(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		IMendixObject result = (IMendixObject)Core.microflowCall("UserlibConflictChecker.DS_UserlibAnalyzePath").withParams(params).execute(context);
 		return result == null ? null : userlibconflictchecker.proxies.CustomUserlibPath.initialize(context, result);
+	}
+	public static userlibconflictchecker.proxies.TargetWidgetsPath dS_WidgetsAnalyzePath(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		IMendixObject result = (IMendixObject)Core.microflowCall("UserlibConflictChecker.DS_WidgetsAnalyzePath").withParams(params).execute(context);
+		return result == null ? null : userlibconflictchecker.proxies.TargetWidgetsPath.initialize(context, result);
 	}
 }

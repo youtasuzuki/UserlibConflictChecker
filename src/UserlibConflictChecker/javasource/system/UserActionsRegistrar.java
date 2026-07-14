@@ -10,5 +10,6 @@ public class UserActionsRegistrar
     registrator.registerUserAction(myfirstmodule.actions.GetClassPath.class);
     registrator.registerUserAction(system.actions.VerifyPassword.class);
     registrator.registerUserAction(userlibconflictchecker.actions.AnalyzeUserlib.class);
+    registrator.registerUserAction(userlibconflictchecker.actions.AnalyzeWidgets.class);
   }
 }
