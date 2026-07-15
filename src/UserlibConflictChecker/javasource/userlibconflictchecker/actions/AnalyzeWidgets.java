@@ -100,6 +100,16 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 	}
 
 	private void traverseMpk(String mpkName, InputStream in, String path) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(false);
+		factory.setValidating(false);
+		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		factory.setFeature("http://xml.org/sax/features/namespaces", false);
+		factory.setFeature("http://xml.org/sax/features/validation", false);
+		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+
 		try (ZipInputStream zis = new ZipInputStream(in)) {
 			ZipEntry entry;
 
@@ -118,10 +128,6 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 					String name = entry.getName();
 					if (name.equals("package.xml")) {
 						byte[] data = zis.readAllBytes();
-						DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-						factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-						//factory.setFeature("http://apache.org", true);
-						DocumentBuilder builder = factory.newDocumentBuilder();
 						Document document = builder.parse(new ByteArrayInputStream(data));
 						Element packageElement = document.getDocumentElement();
 						NodeList clientModuleList = packageElement.getElementsByTagName("clientModule");
@@ -134,10 +140,6 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 												clientModuleInfoMap.put(mpkName, new ClientModuleInfo(mpkName, clientModuleName, version, new java.util.Date(entry.getTime())));						
 					} else if (name.endsWith(".xml")) {
 						byte[] data = zis.readAllBytes();
-						DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-						factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-						//factory.setFeature("http://apache.org", true);
-						DocumentBuilder builder = factory.newDocumentBuilder();
 						Document document = builder.parse(new ByteArrayInputStream(data));
 						Element rootElement = document.getDocumentElement();
 						String rootName = rootElement.getNodeName();
