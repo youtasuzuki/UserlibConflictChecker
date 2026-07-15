@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -113,7 +112,7 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
 		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
-		DocumentBuilder builder = factory.newDocumentBuilder();
+		//DocumentBuilder builder = factory.newDocumentBuilder();
 
 		try (ZipInputStream zis = new ZipInputStream(in)) {
 			ZipEntry entry;
@@ -133,7 +132,9 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 					String name = entry.getName();
 					if (name.equals("package.xml")) {
 						byte[] data = zis.readAllBytes();
-						Document document = builder.parse(new ByteArrayInputStream(data));
+						Document document = factory
+						        .newDocumentBuilder()
+						        .parse(new ByteArrayInputStream(data));
 						Element packageElement = document.getDocumentElement();
 						NodeList clientModuleList = packageElement.getElementsByTagName("clientModule");
 						Element clientModule = (Element) clientModuleList.item(0);
@@ -145,7 +146,9 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 												clientModuleInfoMap.put(mpkName, new ClientModuleInfo(mpkName, clientModuleName, version, new java.util.Date(entry.getTime())));						
 					} else if (name.endsWith(".xml")) {
 						byte[] data = zis.readAllBytes();
-						Document document = builder.parse(new ByteArrayInputStream(data));
+						Document document = factory
+						        .newDocumentBuilder()
+						        .parse(new ByteArrayInputStream(data));
 						Element rootElement = document.getDocumentElement();
 						String rootName = rootElement.getNodeName();
 						if (rootName.equals("widget")) {
