@@ -101,13 +101,18 @@ public class AnalyzeWidgets extends CustomJavaAction<java.util.List<IMendixObjec
 
 	private void traverseMpk(String mpkName, InputStream in, String path) throws Exception {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(false);
-		factory.setValidating(false);
 		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-		factory.setFeature("http://xml.org/sax/features/namespaces", false);
-		factory.setFeature("http://xml.org/sax/features/validation", false);
-		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
 		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
+		factory.setXIncludeAware(false);
+		factory.setExpandEntityReferences(false);
+
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
 		DocumentBuilder builder = factory.newDocumentBuilder();
 
 		try (ZipInputStream zis = new ZipInputStream(in)) {
